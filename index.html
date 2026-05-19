@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>飯塚東町商店街AR案内</title>
+<title>商店街AR案内板</title>
 
 <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
 
@@ -25,11 +25,15 @@ color-space="sRGB"
 renderer="colorManagement: true, physicallyCorrectLights"
 vr-mode-ui="enabled: false"
 device-orientation-permission-ui="enabled: false"
+cursor="rayOrigin: mouse; fuse: false"
+raycaster="objects: .clickable"
 >
 
 <a-assets>
 
 <img id="shop1" src="shop1.jpg">
+<img id="shop2" src="shop2.jpg">
+<img id="shop3" src="shop3.jpg">
 
 </a-assets>
 
@@ -40,11 +44,34 @@ look-controls="enabled: false">
 
 <a-entity mindar-image-target="targetIndex: 0">
 
+<!-- 店舗1 -->
 <a-plane
+class="clickable"
 src="#shop1"
+position="-1.2 0 0"
+width="1"
+height="1.4"
+onclick="window.open('https://www.iizuka-shotengai.com/dagasystem','_blank')">
+</a-plane>
+
+<!-- 店舗2 -->
+<a-plane
+class="clickable"
+src="#shop2"
 position="0 0 0"
 width="1"
-height="0.6">
+height="1.4"
+onclick="window.open('https://www.iizuka-shotengai.com/dagasoft','_blank')">
+</a-plane>
+
+<!-- 店舗3 -->
+<a-plane
+class="clickable"
+src="#shop3"
+position="1.2 0 0"
+width="1"
+height="1.4"
+onclick="window.open('https://www.iizuka-shotengai.com/taiyaki','_blank')">
 </a-plane>
 
 </a-entity>
