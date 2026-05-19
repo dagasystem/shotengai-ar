@@ -46,37 +46,60 @@ look-controls="enabled: false">
 
 <!-- 店舗1 -->
 <a-plane
+id="shop1link"
 class="clickable"
 src="#shop1"
 position="-1.2 0 0"
 width="1"
-height="1.4"
-onclick="window.open('https://www.iizuka-shotengai.com/dagasystem','_blank')">
+height="1.4">
 </a-plane>
 
 <!-- 店舗2 -->
 <a-plane
+id="shop2link"
 class="clickable"
 src="#shop2"
 position="0 0 0"
 width="1"
-height="1.4"
-onclick="window.open('https://www.iizuka-shotengai.com/dagasoft','_blank')">
+height="1.4">
 </a-plane>
 
 <!-- 店舗3 -->
 <a-plane
+id="shop3link"
 class="clickable"
 src="#shop3"
 position="1.2 0 0"
 width="1"
-height="1.4"
-onclick="window.open('https://www.iizuka-shotengai.com/taiyaki','_blank')">
+height="1.4">
 </a-plane>
 
 </a-entity>
 
 </a-scene>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelector("#shop1link")
+    .addEventListener("click", function () {
+      window.open("https://www.iizuka-shotengai.com/dagasystem", "_blank");
+    });
+
+  document.querySelector("#shop2link")
+    .addEventListener("click", function () {
+      window.open("https://www.iizuka-shotengai.com/dagasoft", "_blank");
+    });
+
+  document.querySelector("#shop3link")
+    .addEventListener("click", function () {
+      window.open("https://www.iizuka-shotengai.com/taiyaki", "_blank");
+    });
+
+});
+
+</script>
 
 </body>
 </html>
