@@ -34,9 +34,8 @@ raycaster="objects: .clickable"
 
 <a-assets>
 
+<!-- 透過PNG -->
 <img id="shop1" src="shop1.png">
-<img id="shop2" src="shop2.jpg">
-<img id="shop3" src="shop3.png">
 
 </a-assets>
 
@@ -47,36 +46,16 @@ look-controls="enabled: false">
 
 <a-entity mindar-image-target="targetIndex: 0">
 
-<!-- 店舗1（透過PNG対応） -->
+<!-- shop1だけ表示 -->
 <a-plane
 id="shop1btn"
 class="clickable"
 src="#shop1"
 transparent="true"
 material="transparent: true"
-position="-1.3 0 0"
-width="1"
-height="1.4">
-</a-plane>
-
-<!-- 店舗2 -->
-<a-plane
-id="shop2btn"
-class="clickable"
-src="#shop2"
 position="0 0 0"
-width="1"
-height="1.4">
-</a-plane>
-
-<!-- 店舗3 -->
-<a-plane
-id="shop3btn"
-class="clickable"
-src="#shop3"
-position="1.3 0 0"
-width="1"
-height="1.4">
+width="0.5"
+height="0.7">
 </a-plane>
 
 </a-entity>
@@ -87,28 +66,14 @@ height="1.4">
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // 店舗1
+  // shop1タップ
   const shop1 = document.querySelector("#shop1btn");
 
   shop1.addEventListener("click", () => {
+
     window.location.href =
     "https://www.iizuka-shotengai.com/dagasystem";
-  });
 
-  // 店舗2
-  const shop2 = document.querySelector("#shop2btn");
-
-  shop2.addEventListener("click", () => {
-    window.location.href =
-    "https://www.iizuka-shotengai.com/dagasoft";
-  });
-
-  // 店舗3
-  const shop3 = document.querySelector("#shop3btn");
-
-  shop3.addEventListener("click", () => {
-    window.location.href =
-    "https://www.iizuka-shotengai.com/rose";
   });
 
 });
