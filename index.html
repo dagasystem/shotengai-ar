@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -49,6 +50,8 @@ body{
 
   box-shadow:0 4px 10px rgba(0,0,0,0.3);
 
+  display:none;
+
 }
 
 </style>
@@ -83,7 +86,11 @@ position="0 0 0"
 look-controls="enabled: false">
 </a-camera>
 
-<a-entity mindar-image-target="targetIndex: 0">
+<!-- マーカー -->
+
+<a-entity
+id="target"
+mindar-image-target="targetIndex: 0">
 
 <!-- 店主画像 -->
 
@@ -114,9 +121,14 @@ document.addEventListener("DOMContentLoaded", () => {
   shop1.addEventListener("click", () => {
 
     window.location.href =
-    "https://www.iizuka-shotengai.com";
+    "https://www.iizuka-shotengai.com/dagasystem";
 
   });
+
+  // 吹き出し
+
+  const messageBox =
+  document.querySelector("#messageBox");
 
   // セリフ
 
@@ -128,14 +140,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     "くわしくはこちらでござる！"
 
-  ];
+    "拙者をタップしてくだされ！！"
 
-  const messageBox =
-  document.querySelector("#messageBox");
+  ];
 
   let messageIndex = 0;
 
-  // タイプライター表示
+  // タイプライター
 
   function typeWriter(text, callback, i = 0){
 
@@ -162,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
-  // 次のメッセージへ
+  // 次メッセージ
 
   function showNextMessage(){
 
@@ -172,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         messageIndex++;
 
-        // 最後のセリフなら停止
+        // 次へ
 
         if(messageIndex < messages.length){
 
@@ -190,7 +201,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
-  showNextMessage();
+  // マーカー認識
+
+  const target =
+  document.querySelector("#target");
+
+  target.addEventListener("targetFound", () => {
+
+    // 吹き出し表示
+
+    messageBox.style.display = "block";
+
+    // リセット
+
+    messageIndex = 0;
+
+    // 開始
+
+    showNextMessage();
+
+  });
+
+  // マーカー消失
+
+  target.addEventListener("targetLost", () => {
+
+    messageBox.style.display = "none";
+
+  });
 
 });
 
