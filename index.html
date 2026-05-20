@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -18,7 +17,7 @@ body{
   font-family:sans-serif;
 }
 
-/* 吹き出し文字 */
+/* 吹き出し */
 
 #messageBox{
 
@@ -44,7 +43,7 @@ body{
 
   z-index:999;
 
-  min-width:240px;
+  min-width:260px;
 
   text-align:center;
 
@@ -74,6 +73,7 @@ raycaster="objects: .clickable"
 
 <a-assets>
 
+<!-- 店主PNG -->
 <img id="shop1" src="shop1.png">
 
 </a-assets>
@@ -85,7 +85,7 @@ look-controls="enabled: false">
 
 <a-entity mindar-image-target="targetIndex: 0">
 
-<!-- 店主PNG -->
+<!-- 店主画像 -->
 
 <a-plane
 id="shop1btn"
@@ -106,7 +106,7 @@ height="1.2">
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // HPリンク
+  // タップでURLへ
 
   const shop1 =
   document.querySelector("#shop1btn");
@@ -114,11 +114,11 @@ document.addEventListener("DOMContentLoaded", () => {
   shop1.addEventListener("click", () => {
 
     window.location.href =
-    "https://www.iizuka-shotengai.com/dagasystem";
+    "https://www.iizuka-shotengai.com";
 
   });
 
-  // メッセージ
+  // セリフ
 
   const messages = [
 
@@ -135,7 +135,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let messageIndex = 0;
 
-  function typeWriter(text, i = 0){
+  // タイプライター表示
+
+  function typeWriter(text, callback, i = 0){
 
     if(i <= text.length){
 
@@ -144,28 +146,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
       setTimeout(() => {
 
-        typeWriter(text, i + 1);
+        typeWriter(text, callback, i + 1);
 
       }, 120);
 
     } else {
 
-      setTimeout(() => {
+      if(callback){
 
-        messageIndex =
-        (messageIndex + 1) % messages.length;
+        callback();
 
-        typeWriter(
-          messages[messageIndex]
-        );
-
-      }, 1500);
+      }
 
     }
 
   }
 
-  typeWriter(messages[0]);
+  // 次のメッセージへ
+
+  function showNextMessage(){
+
+    if(messageIndex < messages.length){
+
+      typeWriter(messages[messageIndex], () => {
+
+        messageIndex++;
+
+        // 最後のセリフなら停止
+
+        if(messageIndex < messages.length){
+
+          setTimeout(() => {
+
+            showNextMessage();
+
+          }, 1500);
+
+        }
+
+      });
+
+    }
+
+  }
+
+  showNextMessage();
 
 });
 
