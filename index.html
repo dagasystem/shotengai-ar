@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>商店街AR案内板</title>
+<title>商店街AR動画</title>
 
 <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
 
@@ -14,7 +14,6 @@
 body {
   margin: 0;
   overflow: hidden;
-  font-family: sans-serif;
 }
 </style>
 
@@ -34,8 +33,15 @@ raycaster="objects: .clickable"
 
 <a-assets>
 
-<!-- 透過PNG -->
-<img id="shop1" src="shop1.png">
+<video
+id="movie1"
+src="movie1.mp4"
+autoplay
+loop
+muted
+playsinline
+webkit-playsinline>
+</video>
 
 </a-assets>
 
@@ -46,17 +52,14 @@ look-controls="enabled: false">
 
 <a-entity mindar-image-target="targetIndex: 0">
 
-<!-- shop1だけ表示 -->
-<a-plane
+<a-video
 id="shop1btn"
 class="clickable"
-src="#shop1"
-transparent="true"
-material="transparent: true"
+src="#movie1"
 position="0 0 0"
-width="0.5"
-height="0.7">
-</a-plane>
+width="0.8"
+height="1.4">
+</a-video>
 
 </a-entity>
 
@@ -66,8 +69,8 @@ height="0.7">
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // shop1タップ
-  const shop1 = document.querySelector("#shop1btn");
+  const shop1 =
+  document.querySelector("#shop1btn");
 
   shop1.addEventListener("click", () => {
 
