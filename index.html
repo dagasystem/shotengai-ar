@@ -42,7 +42,7 @@ body{
   object-fit:cover;
 }
 
-/* スタートボタン */
+/* ===== スタート透明ボタン ===== */
 
 #startButton{
 
@@ -64,7 +64,7 @@ body{
 
 }
 
-/* 終了ボタン */
+/* ===== 終了ボタン ===== */
 
 #closeButton{
 
@@ -92,7 +92,7 @@ body{
 
 }
 
-/* セリフ */
+/* ===== セリフ ===== */
 
 #messageBox{
 
@@ -128,7 +128,7 @@ body{
 
 }
 
-/* URLボタン */
+/* ===== URLボタン ===== */
 
 #linkButton{
 
@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       id:0,
       image:"shop1",
-      url:"https://www.iizuka-shotengai.com/dagasoft",
+      url:"https://example.com/1",
 
       messages:[
         "だがソフへようこそ！",
@@ -632,33 +632,9 @@ document.addEventListener("DOMContentLoaded", () => {
       url:"https://example.com/30",
 
       messages:[
-        
-    "ようこそ起こしなされた！",
-
-    "私は、後ろの駄菓子屋の店主でござる！",
-
-    "飯塚宿の紹介を少し",
-
-    "飯塚宿は、長崎街道の宿場として",
-
-    "大いに栄えし町にござる。",
-
-    "異国渡りの砂糖が運ばれ、",
-
-    "「シュガーロード」と呼ばれる",
-
-    "菓子文化の道としても知られ、",
-
-    "甘味文化が花開いた地でござる！",
-
-    "今なお、その賑わいの名残は",
-
-    "商店街に息づいておるのじゃ。",
-
-    "それでは、",
-
-    "商店街のお店をご案内つかまつる！",
-
+        "最後のお店です！",
+        "商店街探索ありがとう！",
+        "くわしくはこちら！"
       ]
     }
 
@@ -750,7 +726,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `targetIndex:${shopData.id}`
     );
 
-    // PNG
+    // ===== PNG =====
 
     const plane =
     document.createElement("a-plane");
@@ -789,7 +765,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     scene.appendChild(target);
 
+    // ===== 状態 =====
+
     let started = false;
+
+    let startTime = 0;
 
     // ===== タイプライター =====
 
@@ -868,7 +848,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    // ===== 認識 =====
+    // ===== マーカー認識 =====
 
     target.addEventListener(
       "targetFound",
@@ -877,6 +857,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if(started) return;
 
         started = true;
+
+        // ===== 開始時間 =====
+
+        startTime = Date.now();
 
         messageBox.style.display =
         "block";
@@ -907,6 +891,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
         linkButton.style.display =
         "none";
+
+        // ===== 閲覧秒数 =====
+
+        const seconds = Math.floor(
+
+          (Date.now() - startTime)
+
+          / 1000
+
+        );
+
+        // ===== GAS送信 =====
+
+        fetch(
+
+          "https://script.google.com/macros/s/AKfycbyJ1Du5S-yQqG8ylXoq8i4g8YmzKlDtngqub1Sj07kiVJYb8b30HFVrvtaX6MTqL7Qf/exec",
+
+          {
+
+            method:"POST",
+
+            body:JSON.stringify({
+
+              shop:shopData.image,
+
+              seconds:seconds,
+
+              time:new Date().toLocaleString()
+
+            })
+
+          }
+
+        );
 
       }
     );
