@@ -37,7 +37,7 @@ body{
 
 }
 
-/* タイトル画像 */
+/* menu.png */
 
 #menuImage{
 
@@ -48,33 +48,53 @@ body{
 
 }
 
-/* スタートボタン */
+/* 透明スタートボタン */
 
 #startButton{
 
   position:absolute;
 
-  bottom:12%;
+  bottom:10%;
 
   left:50%;
 
   transform:translateX(-50%);
 
-  background:#ff6600;
+  width:320px;
 
-  color:white;
+  height:90px;
 
-  padding:18px 36px;
-
-  border-radius:999px;
-
-  font-size:28px;
-
-  font-weight:bold;
+  background:rgba(255,255,255,0);
 
   border:none;
 
-  box-shadow:0 4px 10px rgba(0,0,0,0.4);
+}
+
+/* 終了ボタン */
+
+#closeButton{
+
+  position:fixed;
+
+  top:20px;
+
+  right:20px;
+
+  z-index:9999;
+
+  background:black;
+
+  color:white;
+
+  border:none;
+
+  border-radius:999px;
+
+  padding:12px 18px;
+
+  font-size:18px;
+
+  display:none;
 
 }
 
@@ -158,27 +178,29 @@ body{
 
 <div id="startScreen">
 
-  <!-- menu.png -->
-
   <img
   id="menuImage"
   src="menu.png">
 
-  <!-- スタート -->
+  <!-- 透明ボタン -->
 
-  <button id="startButton">
-
-    タップしてスタート
-
-  </button>
+  <button id="startButton"></button>
 
 </div>
+
+<!-- 終了 -->
+
+<button id="closeButton">
+
+終了
+
+</button>
 
 <!-- 吹き出し -->
 
 <div id="messageBox"></div>
 
-<!-- URLボタン -->
+<!-- URL -->
 
 <a
 id="linkButton"
@@ -211,13 +233,9 @@ position="0 0 0"
 look-controls="enabled: false">
 </a-camera>
 
-<!-- マーカー -->
-
 <a-entity
 id="target"
 mindar-image-target="targetIndex: 0">
-
-<!-- PNG -->
 
 <a-plane
 src="#shop1"
@@ -236,8 +254,6 @@ height="0.6">
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ===== スタート =====
-
   const startButton =
   document.querySelector("#startButton");
 
@@ -247,9 +263,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const scene =
   document.querySelector("#scene");
 
+  const closeButton =
+  document.querySelector("#closeButton");
+
+  const messageBox =
+  document.querySelector("#messageBox");
+
+  const linkButton =
+  document.querySelector("#linkButton");
+
+  const target =
+  document.querySelector("#target");
+
+  // ===== START =====
+
   startButton.addEventListener("click", async () => {
 
-    // スタート画面を消す
+    // メニュー消す
 
     startScreen.style.display = "none";
 
@@ -257,7 +287,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     scene.style.display = "block";
 
-    // MindAR開始
+    // 終了ボタン表示
+
+    closeButton.style.display = "block";
+
+    // AR開始
 
     const mindarSystem =
     scene.systems["mindar-image-system"];
@@ -270,20 +304,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   });
 
-  // ===== 吹き出し =====
+  // ===== 終了 =====
 
-  const messageBox =
-  document.querySelector("#messageBox");
+  closeButton.addEventListener("click", async () => {
 
-  const linkButton =
-  document.querySelector("#linkButton");
+    const mindarSystem =
+    scene.systems["mindar-image-system"];
 
-  const target =
-  document.querySelector("#target");
+    if(mindarSystem){
 
-  // セリフ
+      await mindarSystem.stop();
 
-  const messages = [
+    }
+
+    // AR隠す
+
+    scene.style.display = "none";
+
+    // メニュー戻る
+
+    startScreen.style.display = "block";
+
+    // UI消す
+
+    closeButton.style.display = "none";
+
+    messageBox.style.display = "none";
+
+    linkButton.style.display = "none";
+
+    started = false;
+
+  });
+
+  // ===== セリフ =====
+
+    const messages = [
 
     "ようこそ起こしなされた！",
 
@@ -312,11 +368,11 @@ document.addEventListener("DOMContentLoaded", () => {
     "商店街のお店をご案内つかまつる！",
 
   ];
+
+
   let messageIndex = 0;
 
   let started = false;
-
-  // タイプライター
 
   function typeWriter(text, callback, i = 0){
 
@@ -343,8 +399,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
-  // 次メッセージ
-
   function showNextMessage(){
 
     if(messageIndex < messages.length){
@@ -363,8 +417,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         } else {
 
-          // 最後でボタン表示
-
           linkButton.style.display =
           "block";
 
@@ -376,7 +428,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
-  // マーカー認識
+  // ===== マーカー認識 =====
 
   target.addEventListener("targetFound", () => {
 
@@ -391,8 +443,6 @@ document.addEventListener("DOMContentLoaded", () => {
     showNextMessage();
 
   });
-
-  // マーカー外れた
 
   target.addEventListener("targetLost", () => {
 
