@@ -334,7 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
     linkButton.style.display = "none";
 
     started = false;
-
+    
   });
 
   // ===== セリフ =====
@@ -365,6 +365,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let messageIndex = 0;
 
   let started = false;
+
+  let startTime = 0;
 
   function typeWriter(text, callback, i = 0){
 
@@ -428,6 +430,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     started = true;
 
+    startTime = Date.now();
+
     messageBox.style.display = "block";
 
     messageIndex = 0;
@@ -436,15 +440,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
   });
 
-  target.addEventListener("targetLost", () => {
+target.addEventListener("targetLost", () => {
 
-    started = false;
+  started = false;
 
-    messageBox.style.display = "none";
+  messageBox.style.display = "none";
 
-    linkButton.style.display = "none";
+  linkButton.style.display = "none";
 
-  });
+  // 見ていた秒数
+
+  const seconds = Math.floor(
+
+    (Date.now() - startTime) / 1000
+
+  );
+
+  // GASへ送信
+
+  fetch(
+
+    "https://script.google.com/macros/s/AKfycbyJ1Du5S-yQqG8ylXoq8i4g8YmzKlDtngqub1Sj07kiVJYb8b30HFVrvtaX6MTqL7Qf/exec",
+
+    {
+
+      method: "POST",
+
+      body: JSON.stringify({
+
+        shop: "dagasoft",
+
+        seconds: seconds
+
+      })
+
+    }
+
+  );
+
+});
 
 });
 
