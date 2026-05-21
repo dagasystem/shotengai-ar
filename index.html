@@ -74,7 +74,7 @@ body{
 
   right:20px;
 
-  z-index:9999;
+  z-index:10000;
 
   background:black;
 
@@ -104,7 +104,7 @@ body{
 
   transform:translateX(-50%);
 
-  background:white;
+  background:rgba(255,255,255,0.95);
 
   color:black;
 
@@ -116,15 +116,21 @@ body{
 
   font-weight:bold;
 
-  z-index:999;
+  z-index:10000;
 
-  min-width:260px;
+  width:auto;
+
+  max-width:80%;
+
+  min-width:120px;
 
   text-align:center;
 
   box-shadow:0 4px 10px rgba(0,0,0,0.3);
 
   display:none;
+
+  white-space:nowrap;
 
 }
 
@@ -152,7 +158,7 @@ body{
 
   font-weight:bold;
 
-  z-index:999;
+  z-index:10000;
 
   text-decoration:none;
 
@@ -285,9 +291,9 @@ document.addEventListener("DOMContentLoaded", () => {
       url:"https://example.com/1",
 
       messages:[
-        "だがソフへようこそ！",
-        "ソフトクリーム販売中！",
-        "商店街を楽しんでね！"
+        "shop1へようこそ！",
+        "おすすめ商品あります！",
+        "ぜひ見ていってね！"
       ]
     },
 
@@ -332,13 +338,335 @@ document.addEventListener("DOMContentLoaded", () => {
       url:"https://example.com/3",
 
       messages:[
-        "Roseへようこそ！",
+        "shop3へようこそ！",
+        "限定商品あります！",
+        "チェックしてね！"
+      ]
+    },
+
+    {
+      id:3,
+      image:"shop4",
+      url:"https://example.com/4",
+
+      messages:[
+        "shop4へようこそ！",
+        "本日営業中！",
+        "ぜひご来店ください！"
+      ]
+    },
+
+    {
+      id:4,
+      image:"shop5",
+      url:"https://example.com/5",
+
+      messages:[
+        "shop5へようこそ！",
+        "人気スポットです！",
+        "ぜひ見ていってね！"
+      ]
+    },
+
+    {
+      id:5,
+      image:"shop6",
+      url:"https://example.com/6",
+
+      messages:[
+        "shop6へようこそ！",
+        "おいしい発見あります！",
+        "ぜひどうぞ！"
+      ]
+    },
+
+    {
+      id:6,
+      image:"shop7",
+      url:"https://example.com/7",
+
+      messages:[
+        "shop7へようこそ！",
+        "おすすめあります！",
+        "チェックしてね！"
+      ]
+    },
+
+    {
+      id:7,
+      image:"shop8",
+      url:"https://example.com/8",
+
+      messages:[
+        "shop8へようこそ！",
+        "限定商品あります！",
+        "ぜひご覧ください！"
+      ]
+    },
+
+    {
+      id:8,
+      image:"shop9",
+      url:"https://example.com/9",
+
+      messages:[
+        "shop9へようこそ！",
+        "本日営業中！",
+        "ぜひどうぞ！"
+      ]
+    },
+
+    {
+      id:9,
+      image:"shop10",
+      url:"https://example.com/10",
+
+      messages:[
+        "shop10へようこそ！",
+        "人気急上昇中！",
+        "ぜひ見ていってね！"
+      ]
+    },
+
+    {
+      id:10,
+      image:"shop11",
+      url:"https://example.com/11",
+
+      messages:[
+        "shop11へようこそ！",
+        "おすすめあります！",
+        "ぜひどうぞ！"
+      ]
+    },
+
+    {
+      id:11,
+      image:"shop12",
+      url:"https://example.com/12",
+
+      messages:[
+        "shop12へようこそ！",
+        "焼きたてです！",
+        "ぜひ食べてみて！"
+      ]
+    },
+
+    {
+      id:12,
+      image:"shop13",
+      url:"https://example.com/13",
+
+      messages:[
+        "shop13へようこそ！",
         "かわいい雑貨あります！",
         "ぜひ見ていってね！"
       ]
     },
 
-    // ===== ここから30店舗まで追加可能 =====
+    {
+      id:13,
+      image:"shop14",
+      url:"https://example.com/14",
+
+      messages:[
+        "shop14へようこそ！",
+        "本日のおすすめ！",
+        "ぜひどうぞ！"
+      ]
+    },
+
+    {
+      id:14,
+      image:"shop15",
+      url:"https://example.com/15",
+
+      messages:[
+        "shop15へようこそ！",
+        "人気商品あります！",
+        "チェックしてね！"
+      ]
+    },
+
+    {
+      id:15,
+      image:"shop16",
+      url:"https://example.com/16",
+
+      messages:[
+        "shop16へようこそ！",
+        "営業中です！",
+        "ぜひどうぞ！"
+      ]
+    },
+
+    {
+      id:16,
+      image:"shop17",
+      url:"https://example.com/17",
+
+      messages:[
+        "shop17へようこそ！",
+        "おすすめあります！",
+        "ぜひ見ていってね！"
+      ]
+    },
+
+    {
+      id:17,
+      image:"shop18",
+      url:"https://example.com/18",
+
+      messages:[
+        "shop18へようこそ！",
+        "限定商品あります！",
+        "チェックしてね！"
+      ]
+    },
+
+    {
+      id:18,
+      image:"shop19",
+      url:"https://example.com/19",
+
+      messages:[
+        "shop19へようこそ！",
+        "商店街を楽しもう！",
+        "ぜひどうぞ！"
+      ]
+    },
+
+    {
+      id:19,
+      image:"shop20",
+      url:"https://example.com/20",
+
+      messages:[
+        "shop20へようこそ！",
+        "本日営業中！",
+        "ぜひご来店ください！"
+      ]
+    },
+
+    {
+      id:20,
+      image:"shop21",
+      url:"https://example.com/21",
+
+      messages:[
+        "shop21へようこそ！",
+        "おすすめあります！",
+        "ぜひどうぞ！"
+      ]
+    },
+
+    {
+      id:21,
+      image:"shop22",
+      url:"https://example.com/22",
+
+      messages:[
+        "shop22へようこそ！",
+        "人気商品あります！",
+        "ぜひ見ていってね！"
+      ]
+    },
+
+    {
+      id:22,
+      image:"shop23",
+      url:"https://example.com/23",
+
+      messages:[
+        "shop23へようこそ！",
+        "営業中です！",
+        "ぜひどうぞ！"
+      ]
+    },
+
+    {
+      id:23,
+      image:"shop24",
+      url:"https://example.com/24",
+
+      messages:[
+        "shop24へようこそ！",
+        "おすすめあります！",
+        "チェックしてね！"
+      ]
+    },
+
+    {
+      id:24,
+      image:"shop25",
+      url:"https://example.com/25",
+
+      messages:[
+        "shop25へようこそ！",
+        "限定商品あります！",
+        "ぜひどうぞ！"
+      ]
+    },
+
+    {
+      id:25,
+      image:"shop26",
+      url:"https://example.com/26",
+
+      messages:[
+        "shop26へようこそ！",
+        "人気スポットです！",
+        "ぜひ見ていってね！"
+      ]
+    },
+
+    {
+      id:26,
+      image:"shop27",
+      url:"https://example.com/27",
+
+      messages:[
+        "shop27へようこそ！",
+        "本日のおすすめ！",
+        "ぜひどうぞ！"
+      ]
+    },
+
+    {
+      id:27,
+      image:"shop28",
+      url:"https://example.com/28",
+
+      messages:[
+        "shop28へようこそ！",
+        "営業中です！",
+        "ぜひ見ていってね！"
+      ]
+    },
+
+    {
+      id:28,
+      image:"shop29",
+      url:"https://example.com/29",
+
+      messages:[
+        "shop29へようこそ！",
+        "人気商品あります！",
+        "チェックしてね！"
+      ]
+    },
+
+    {
+      id:29,
+      image:"shop30",
+      url:"https://example.com/30",
+
+      messages:[
+        "shop30へようこそ！",
+        "商店街探索ありがとう！",
+        "また来てね！"
+      ]
+    }
 
   ];
 
@@ -420,8 +748,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   shops.forEach((shopData) => {
 
-    // ===== マーカー =====
-
     const target =
     document.createElement("a-entity");
 
@@ -429,8 +755,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "mindar-image-target",
       `targetIndex:${shopData.id}`
     );
-
-    // ===== PNG =====
 
     const plane =
     document.createElement("a-plane");
@@ -450,8 +774,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "transparent:true"
     );
 
-    // ===== サイズ =====
-
     plane.setAttribute(
       "width",
       "0.4"
@@ -462,8 +784,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "0.6"
     );
 
-    // ===== 前へ =====
-
     plane.setAttribute(
       "position",
       "0 0 0.1"
@@ -472,8 +792,6 @@ document.addEventListener("DOMContentLoaded", () => {
     target.appendChild(plane);
 
     scene.appendChild(target);
-
-    // ===== 状態 =====
 
     let started = false;
 
@@ -489,7 +807,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if(i <= text.length){
 
-        messageBox.innerHTML =
+        messageBox.textContent =
         text.substring(0, i);
 
         setTimeout(() => {
@@ -534,8 +852,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             messageIndex++;
 
-            // ===== 次のセリフ =====
-
             if(
               messageIndex
               <
@@ -549,8 +865,6 @@ document.addEventListener("DOMContentLoaded", () => {
               }, 1500);
 
             }
-
-            // ===== 全セリフ終了 =====
 
             else {
 
@@ -580,21 +894,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         started = true;
 
-        // ===== 時間開始 =====
-
         startTime = Date.now();
-
-        // ===== セリフ表示 =====
 
         messageBox.style.display =
         "block";
 
-        // ===== ボタン非表示 =====
-
         linkButton.style.display =
         "none";
-
-        // ===== セリフ開始 =====
 
         messageIndex = 0;
 
@@ -617,8 +923,6 @@ document.addEventListener("DOMContentLoaded", () => {
         linkButton.style.display =
         "none";
 
-        // ===== 閲覧秒数 =====
-
         const seconds = Math.floor(
 
           (Date.now() - startTime)
@@ -627,11 +931,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         );
 
-        // ===== GAS送信 =====
-
         fetch(
 
-          "https://script.google.com/macros/s/AKfycbyJ1Du5S-yQqG8ylXoq8i4g8YmzKlDtngqub1Sj07kiVJYb8b30HFVrvtaX6MTqL7Qf/exec",
+          "ここにGASのURL",
 
           {
 
