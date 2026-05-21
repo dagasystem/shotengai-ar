@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport"
+
+<meta
+name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>まちみっけ！</title>
 
+<!-- A-Frame -->
 <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
 
+<!-- MindAR -->
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
@@ -22,33 +27,22 @@ body{
 /* ===== スタート画面 ===== */
 
 #startScreen{
-
   position:fixed;
-
   top:0;
   left:0;
-
   width:100%;
   height:100%;
-
   background:black;
-
   z-index:9999;
-
 }
-
-/* menu.png */
 
 #menuImage{
-
   width:100%;
   height:100%;
-
   object-fit:cover;
-
 }
 
-/* 透明スタートボタン */
+/* スタートボタン */
 
 #startButton{
 
@@ -98,13 +92,13 @@ body{
 
 }
 
-/* 吹き出し */
+/* セリフ */
 
 #messageBox{
 
   position:fixed;
 
-  top:15%;
+  top:12%;
 
   left:50%;
 
@@ -118,7 +112,7 @@ body{
 
   border-radius:20px;
 
-  font-size:26px;
+  font-size:24px;
 
   font-weight:bold;
 
@@ -182,13 +176,11 @@ body{
   id="menuImage"
   src="menu.png">
 
-  <!-- 透明ボタン -->
-
   <button id="startButton"></button>
 
 </div>
 
-<!-- 終了 -->
+<!-- ===== 終了 ===== -->
 
 <button id="closeButton">
 
@@ -196,63 +188,459 @@ body{
 
 </button>
 
-<!-- 吹き出し -->
+<!-- ===== セリフ ===== -->
 
 <div id="messageBox"></div>
 
-<!-- URL -->
+<!-- ===== URL ===== -->
 
 <a
 id="linkButton"
-href="https://www.iizuka-shotengai.com">
+href="#">
 
-ここをタップしてくだされ
+くわしくはこちら
 
 </a>
 
 <!-- ===== AR ===== -->
 
 <a-scene
+
 id="scene"
+
 mindar-image="imageTargetSrc: targets.mind;"
+
 color-space="sRGB"
+
 renderer="colorManagement: true, physicallyCorrectLights"
+
 vr-mode-ui="enabled: false"
+
 device-orientation-permission-ui="enabled: false"
+
 style="display:none"
+
 >
+
+<!-- ===== 画像 ===== -->
 
 <a-assets>
 
 <img id="shop1" src="shop1.png">
+<img id="shop2" src="shop2.png">
+<img id="shop3" src="shop3.png">
+<img id="shop4" src="shop4.png">
+<img id="shop5" src="shop5.png">
+<img id="shop6" src="shop6.png">
+<img id="shop7" src="shop7.png">
+<img id="shop8" src="shop8.png">
+<img id="shop9" src="shop9.png">
+<img id="shop10" src="shop10.png">
+
+<img id="shop11" src="shop11.png">
+<img id="shop12" src="shop12.png">
+<img id="shop13" src="shop13.png">
+<img id="shop14" src="shop14.png">
+<img id="shop15" src="shop15.png">
+<img id="shop16" src="shop16.png">
+<img id="shop17" src="shop17.png">
+<img id="shop18" src="shop18.png">
+<img id="shop19" src="shop19.png">
+<img id="shop20" src="shop20.png">
+
+<img id="shop21" src="shop21.png">
+<img id="shop22" src="shop22.png">
+<img id="shop23" src="shop23.png">
+<img id="shop24" src="shop24.png">
+<img id="shop25" src="shop25.png">
+<img id="shop26" src="shop26.png">
+<img id="shop27" src="shop27.png">
+<img id="shop28" src="shop28.png">
+<img id="shop29" src="shop29.png">
+<img id="shop30" src="shop30.png">
 
 </a-assets>
 
+<!-- ===== カメラ ===== -->
+
 <a-camera
 position="0 0 0"
-look-controls="enabled: false">
+look-controls="enabled:false">
 </a-camera>
-
-<a-entity
-id="target"
-mindar-image-target="targetIndex: 0">
-
-<a-plane
-src="#shop1"
-transparent="true"
-material="transparent: true"
-position="0 0 0.1"
-width="0.4"
-height="0.6">
-</a-plane>
-
-</a-entity>
 
 </a-scene>
 
 <script>
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  // ===== 店舗データ =====
+
+  const shops = [
+
+    {
+      id:0,
+      image:"shop1",
+      url:"https://example.com/1",
+
+      messages:[
+        "だがソフへようこそ！",
+        "ソフトクリーム販売中！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:1,
+      image:"shop2",
+      url:"https://example.com/2",
+
+      messages:[
+        "たい焼き発見！",
+        "焼きたてです！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:2,
+      image:"shop3",
+      url:"https://example.com/3",
+
+      messages:[
+        "Roseへようこそ！",
+        "かわいい雑貨あります！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:3,
+      image:"shop4",
+      url:"https://example.com/4",
+
+      messages:[
+        "本日営業中！",
+        "人気商品あります！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:4,
+      image:"shop5",
+      url:"https://example.com/5",
+
+      messages:[
+        "おすすめあります！",
+        "ぜひお立ち寄りください！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:5,
+      image:"shop6",
+      url:"https://example.com/6",
+
+      messages:[
+        "商店街を探索中！",
+        "おいしい発見あり！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:6,
+      image:"shop7",
+      url:"https://example.com/7",
+
+      messages:[
+        "営業中です！",
+        "本日のおすすめあります！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:7,
+      image:"shop8",
+      url:"https://example.com/8",
+
+      messages:[
+        "限定商品あります！",
+        "ぜひチェック！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:8,
+      image:"shop9",
+      url:"https://example.com/9",
+
+      messages:[
+        "ようこそ！",
+        "人気商品あります！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:9,
+      image:"shop10",
+      url:"https://example.com/10",
+
+      messages:[
+        "本日も元気に営業中！",
+        "ぜひご来店ください！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:10,
+      image:"shop11",
+      url:"https://example.com/11",
+
+      messages:[
+        "新商品あります！",
+        "商店街を楽しもう！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:11,
+      image:"shop12",
+      url:"https://example.com/12",
+
+      messages:[
+        "焼きたてです！",
+        "いい香り！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:12,
+      image:"shop13",
+      url:"https://example.com/13",
+
+      messages:[
+        "休憩しませんか？",
+        "おすすめあります！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:13,
+      image:"shop14",
+      url:"https://example.com/14",
+
+      messages:[
+        "ここだけの商品あります！",
+        "ぜひ見ていってください！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:14,
+      image:"shop15",
+      url:"https://example.com/15",
+
+      messages:[
+        "本日おすすめ！",
+        "人気上昇中！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:15,
+      image:"shop16",
+      url:"https://example.com/16",
+
+      messages:[
+        "商店街を冒険中！",
+        "次はこちら！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:16,
+      image:"shop17",
+      url:"https://example.com/17",
+
+      messages:[
+        "本日営業中！",
+        "お待ちしています！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:17,
+      image:"shop18",
+      url:"https://example.com/18",
+
+      messages:[
+        "発見！",
+        "人気スポットです！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:18,
+      image:"shop19",
+      url:"https://example.com/19",
+
+      messages:[
+        "ここだけの味！",
+        "ぜひ体験してください！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:19,
+      image:"shop20",
+      url:"https://example.com/20",
+
+      messages:[
+        "本日のおすすめ！",
+        "数量限定あります！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:20,
+      image:"shop21",
+      url:"https://example.com/21",
+
+      messages:[
+        "営業中！",
+        "ぜひご来店ください！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:21,
+      image:"shop22",
+      url:"https://example.com/22",
+
+      messages:[
+        "ようこそ！",
+        "新商品あります！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:22,
+      image:"shop23",
+      url:"https://example.com/23",
+
+      messages:[
+        "発見しました！",
+        "おすすめあります！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:23,
+      image:"shop24",
+      url:"https://example.com/24",
+
+      messages:[
+        "人気商品あります！",
+        "ぜひチェック！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:24,
+      image:"shop25",
+      url:"https://example.com/25",
+
+      messages:[
+        "商店街を楽しもう！",
+        "次はこちら！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:25,
+      image:"shop26",
+      url:"https://example.com/26",
+
+      messages:[
+        "営業中です！",
+        "おすすめあります！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:26,
+      image:"shop27",
+      url:"https://example.com/27",
+
+      messages:[
+        "ここが話題のお店！",
+        "ぜひどうぞ！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:27,
+      image:"shop28",
+      url:"https://example.com/28",
+
+      messages:[
+        "限定商品あります！",
+        "お見逃しなく！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:28,
+      image:"shop29",
+      url:"https://example.com/29",
+
+      messages:[
+        "発見！",
+        "楽しいお店です！",
+        "くわしくはこちら！"
+      ]
+    },
+
+    {
+      id:29,
+      image:"shop30",
+      url:"https://example.com/30",
+
+      messages:[
+        "最後のお店です！",
+        "商店街探索ありがとう！",
+        "くわしくはこちら！"
+      ]
+    }
+
+  ];
+
+  // ===== UI =====
 
   const startButton =
   document.querySelector("#startButton");
@@ -272,26 +660,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const linkButton =
   document.querySelector("#linkButton");
 
-  const target =
-  document.querySelector("#target");
-
   // ===== START =====
 
   startButton.addEventListener("click", async () => {
 
-    // メニュー消す
+    startScreen.style.display =
+    "none";
 
-    startScreen.style.display = "none";
+    scene.style.display =
+    "block";
 
-    // AR表示
-
-    scene.style.display = "block";
-
-    // 終了ボタン表示
-
-    closeButton.style.display = "block";
-
-    // AR開始
+    closeButton.style.display =
+    "block";
 
     const mindarSystem =
     scene.systems["mindar-image-system"];
@@ -317,168 +697,197 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    // AR隠す
+    scene.style.display =
+    "none";
 
-    scene.style.display = "none";
+    startScreen.style.display =
+    "block";
 
-    // メニュー戻る
+    closeButton.style.display =
+    "none";
 
-    startScreen.style.display = "block";
+    messageBox.style.display =
+    "none";
 
-    // UI消す
+    linkButton.style.display =
+    "none";
 
-    closeButton.style.display = "none";
-
-    messageBox.style.display = "none";
-
-    linkButton.style.display = "none";
-
-    started = false;
-    
   });
 
-  // ===== セリフ =====
+  // ===== 店舗生成 =====
 
-    const messages = [
+  shops.forEach((shopData) => {
 
-    "ようこそ起こしなされた！",
+    const target =
+    document.createElement("a-entity");
 
-    "私は、後ろの駄菓子屋の店主でござる！",
+    target.setAttribute(
+      "mindar-image-target",
+      `targetIndex:${shopData.id}`
+    );
 
-    "飯塚宿の紹介を少し",
+    // PNG
 
-    "飯塚宿は、長崎街道の宿場として大いに栄えし町にござる。",
+    const plane =
+    document.createElement("a-plane");
 
-    "異国渡りの砂糖が運ばれ、「シュガーロード」と呼ばれる菓子文化の道としても知られ、",
+    plane.setAttribute(
+      "src",
+      `#${shopData.image}`
+    );
 
-    "甘味文化が花開いた地でござる！",
+    plane.setAttribute(
+      "transparent",
+      "true"
+    );
 
-    "今なお、その賑わいの名残は商店街に息づいておるのじゃ。",
+    plane.setAttribute(
+      "material",
+      "transparent:true"
+    );
 
-    "それでは、",
+    plane.setAttribute(
+      "width",
+      "0.4"
+    );
 
-    "商店街のお店をご案内つかまつる！",
+    plane.setAttribute(
+      "height",
+      "0.6"
+    );
 
-  ];
+    plane.setAttribute(
+      "position",
+      "0 0 0.1"
+    );
 
+    target.appendChild(plane);
 
-  let messageIndex = 0;
+    scene.appendChild(target);
 
-  let started = false;
+    let started = false;
 
-  let startTime = 0;
+    // ===== タイプライター =====
 
-  function typeWriter(text, callback, i = 0){
+    function typeWriter(
+      text,
+      callback,
+      i = 0
+    ){
 
-    if(i <= text.length){
+      if(i <= text.length){
 
-      messageBox.innerHTML =
-      text.substring(0, i);
+        messageBox.innerHTML =
+        text.substring(0, i);
 
-      setTimeout(() => {
+        setTimeout(() => {
 
-        typeWriter(text, callback, i + 1);
+          typeWriter(
+            text,
+            callback,
+            i + 1
+          );
 
-      }, 120);
+        }, 120);
 
-    } else {
+      } else {
 
-      if(callback){
+        if(callback){
 
-        callback();
+          callback();
+
+        }
 
       }
 
     }
 
-  }
+    // ===== セリフ順表示 =====
 
-  function showNextMessage(){
+    let messageIndex = 0;
 
-    if(messageIndex < messages.length){
+    function showNextMessage(){
 
-      typeWriter(messages[messageIndex], () => {
+      if(
+        messageIndex
+        <
+        shopData.messages.length
+      ){
 
-        messageIndex++;
+        typeWriter(
 
-        if(messageIndex < messages.length){
+          shopData.messages[messageIndex],
 
-          setTimeout(() => {
+          () => {
 
-            showNextMessage();
+            messageIndex++;
 
-          }, 1500);
+            if(
+              messageIndex
+              <
+              shopData.messages.length
+            ){
 
-        } else {
+              setTimeout(() => {
 
-          linkButton.style.display =
-          "block";
+                showNextMessage();
 
-        }
+              }, 1500);
 
-      });
+            }
+
+          }
+
+        );
+
+      }
 
     }
 
-  }
+    // ===== 認識 =====
 
-  // ===== マーカー認識 =====
+    target.addEventListener(
+      "targetFound",
+      () => {
 
-  target.addEventListener("targetFound", () => {
+        if(started) return;
 
-    if(started) return;
+        started = true;
 
-    started = true;
+        messageBox.style.display =
+        "block";
 
-    startTime = Date.now();
+        messageIndex = 0;
 
-    messageBox.style.display = "block";
+        showNextMessage();
 
-    messageIndex = 0;
+        linkButton.href =
+        shopData.url;
 
-    showNextMessage();
+        linkButton.style.display =
+        "block";
+
+      }
+    );
+
+    // ===== マーカー外れ =====
+
+    target.addEventListener(
+      "targetLost",
+      () => {
+
+        started = false;
+
+        messageBox.style.display =
+        "none";
+
+        linkButton.style.display =
+        "none";
+
+      }
+    );
 
   });
-
-target.addEventListener("targetLost", () => {
-
-  started = false;
-
-  messageBox.style.display = "none";
-
-  linkButton.style.display = "none";
-
-  // 見ていた秒数
-
-  const seconds = Math.floor(
-
-    (Date.now() - startTime) / 1000
-
-  );
-
-  // GASへ送信
-
-  fetch(
-
-    "https://script.google.com/macros/s/AKfycbyJ1Du5S-yQqG8ylXoq8i4g8YmzKlDtngqub1Sj07kiVJYb8b30HFVrvtaX6MTqL7Qf/exec",
-
-    {
-
-      method: "POST",
-
-      body: JSON.stringify({
-
-        shop: "dagasoft",
-
-        seconds: seconds
-
-      })
-
-    }
-
-  );
-
-});
 
 });
 
