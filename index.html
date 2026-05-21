@@ -890,13 +890,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
         messageIndex = 0;
 
-        showNextMessage();
+function showNextMessage(){
 
-        linkButton.href =
-        shopData.url;
+  if(
+    messageIndex
+    <
+    shopData.messages.length
+  ){
 
-        linkButton.style.display =
-        "block";
+    typeWriter(
+
+      shopData.messages[messageIndex],
+
+      () => {
+
+        messageIndex++;
+
+        // ===== 次のセリフ =====
+
+        if(
+          messageIndex
+          <
+          shopData.messages.length
+        ){
+
+          setTimeout(() => {
+
+            showNextMessage();
+
+          }, 1500);
+
+        }
+
+        // ===== 全セリフ終了 =====
+
+        else {
+
+          // ボタン表示
+
+          linkButton.href =
+          shopData.url;
+
+          linkButton.style.display =
+          "block";
+
+        }
+
+      }
+
+    );
+
+  }
+
+}
 
       }
     );
