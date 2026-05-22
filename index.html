@@ -120,7 +120,7 @@ body{
 
   width:auto;
 
-  max-width:80%;
+  max-width:70%;
 
   min-width:120px;
 
@@ -130,9 +130,11 @@ body{
 
   display:none;
 
-  white-space:normal;
+  /* ===== 改行安定化 ===== */
 
-  word-break:keep-all;
+  white-space:pre-wrap;
+
+  overflow-wrap:break-word;
 
   line-height:1.5;
 
@@ -296,10 +298,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       messages:[
         "濃厚生乳ソフトクリーム専門店　だがソフへようこそ！",
+        
         "たくさんの種類のアレンジソフトクリームがあります！",
+        
         "小さなお子様も一緒に点合に滞在していただけるよう、",
+
         "絵本等も準備しています。",
+
         "ぜひ当店で「のんびり」とお過ごしください！"
+
       ]
     },
 
