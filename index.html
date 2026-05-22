@@ -958,6 +958,11 @@ typingTimeouts.push(timeout);
       "targetLost",
       () => {
 
+
+      if(!started) return;
+
+      started = false;
+        
         started = false;
 
         messageBox.style.display =
@@ -974,6 +979,8 @@ typingTimeouts.push(timeout);
 
         );
 
+        if(seconds <= 0) return;
+        
         fetch(
 
           "https://script.google.com/macros/s/AKfycbyJ1Du5S-yQqG8ylXoq8i4g8YmzKlDtngqub1Sj07kiVJYb8b30HFVrvtaX6MTqL7Qf/exec",
