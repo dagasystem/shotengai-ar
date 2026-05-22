@@ -747,6 +747,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   closeButton.addEventListener("click", async () => {
 
+    typingTimeouts.forEach(timeout => {
+
+      clearTimeout(timeout);
+
+    });
+
+    typingTimeouts = [];
+    
     const mindarSystem =
     scene.systems["mindar-image-system"];
 
@@ -776,6 +784,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===== 店舗生成 =====
 
   shops.forEach((shopData) => {
+
+    let typingTimeouts = [];
 
     const target =
     document.createElement("a-entity");
@@ -839,15 +849,17 @@ document.addEventListener("DOMContentLoaded", () => {
         messageBox.textContent =
         text.substring(0, i);
 
-        setTimeout(() => {
-
+        const timeout = setTimeout(() => {
+        
           typeWriter(
             text,
             callback,
             i + 1
           );
-
+        
         }, 120);
+
+typingTimeouts.push(timeout);
 
       } else {
 
@@ -887,11 +899,13 @@ document.addEventListener("DOMContentLoaded", () => {
               shopData.messages.length
             ){
 
-              setTimeout(() => {
+              const timeout = setTimeout(() => {
 
-                showNextMessage();
+              showNextMessage();
 
               }, 1500);
+
+              typingTimeouts.push(timeout);
 
             }
 
