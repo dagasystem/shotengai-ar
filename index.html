@@ -748,7 +748,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== 終了 =====
 
-  closeButton.addEventListener("click", async () => {
+    closeButton.addEventListener(
+    "click",
+    async (event) => {
 
     event.stopPropagation();
     
