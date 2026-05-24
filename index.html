@@ -757,6 +757,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const linkButton =
   document.querySelector("#linkButton");
 
+  let arStarted = false;
+
   // ===== START =====
 
   startButton.addEventListener("click", async () => {
@@ -777,6 +779,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       await mindarSystem.start();
 
+      arStarted = true;
+
     }
 
   });
@@ -795,6 +799,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if(mindarSystem){
 
       await mindarSystem.stop();
+
+      arStarted = false;
 
     }
 
@@ -977,7 +983,9 @@ typingTimeouts.push(timeout);
     target.addEventListener(
       "targetFound",
       () => {
-    
+
+        if(!arStarted) return;
+        
         if(started) return;
     
         started = true;
