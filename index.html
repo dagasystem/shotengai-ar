@@ -254,8 +254,8 @@ loop
 muted
 playsinline
 webkit-playsinline>
+crossorigin="anonymous">
 </video>
-<img id="shop6" src="cookie.mp4">
 <img id="shop7" src="shop7.png">
 <img id="shop8" src="shop8.png">
 <img id="shop9" src="shop9.png">
@@ -789,14 +789,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     event.stopPropagation();
     
-    typingTimeouts.forEach(timeout => {
-
-      clearTimeout(timeout);
-
-    });
-
-    typingTimeouts = [];
-    
     const mindarSystem =
     scene.systems["mindar-image-system"];
 
@@ -985,23 +977,40 @@ typingTimeouts.push(timeout);
     target.addEventListener(
       "targetFound",
       () => {
-
+    
         if(started) return;
-
+    
         started = true;
-
+    
         startTime = Date.now();
-
+    
+        // ===== 動画再生 =====
+    
+        if(shopData.type === "video"){
+    
+          const video =
+          document.querySelector(
+            `#${shopData.image}`
+          );
+    
+          if(video){
+    
+            video.play();
+    
+          }
+    
+        }
+    
         messageBox.style.display =
         "block";
-
+    
         linkButton.style.display =
         "none";
-
+    
         messageIndex = 0;
-
+    
         showNextMessage();
-
+    
       }
     );
 
@@ -1011,6 +1020,25 @@ typingTimeouts.push(timeout);
       "targetLost",
       () => {
 
+
+        // ===== 動画停止 =====
+
+        if(shopData.type === "video"){
+
+          const video =
+          document.querySelector(
+            `#${shopData.image}`
+          );
+
+          if(video){
+
+            video.pause();
+
+            video.currentTime = 0;
+
+          }
+
+        }        
 
       if(!started) return;
 
