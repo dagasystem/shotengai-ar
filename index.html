@@ -860,12 +860,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     plane.setAttribute(
       "width",
-      "0.4"
+      "0.8"
     );
 
     plane.setAttribute(
       "height",
-      "0.6"
+      "1.2"
     );
 
     plane.setAttribute(
@@ -1001,15 +1001,23 @@ typingTimeouts.push(timeout);
     
         }
     
-        messageBox.style.display =
-        "block";
+        if(shopData.type !== "video"){
+
+          messageBox.style.display =
+          "block";
+
+        }
     
         linkButton.style.display =
         "none";
     
-        messageIndex = 0;
-    
-        showNextMessage();
+        if(shopData.type !== "video"){
+
+          messageIndex = 0;
+
+         showNextMessage();
+
+        }
     
       }
     );
