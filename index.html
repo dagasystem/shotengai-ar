@@ -223,7 +223,11 @@ target="_blank">
 
 id="scene"
 
-mindar-image="imageTargetSrc: targets.mind;"
+mindar-image="
+imageTargetSrc: targets.mind;
+filterMinCF:0.001;
+filterBeta:0.01;
+"
 
 color-space="sRGB"
 
@@ -253,7 +257,7 @@ autoplay
 loop
 muted
 playsinline
-webkit-playsinline>
+webkit-playsinline
 crossorigin="anonymous">
 </video>
 <img id="shop7" src="shop7.png">
@@ -860,8 +864,8 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     plane.setAttribute(
-      "material",
-      "transparent:true"
+    "material",
+    "transparent:true; shader: flat"
     );
 
     plane.setAttribute(
@@ -876,7 +880,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     plane.setAttribute(
       "position",
-      "0 0 0.1"
+      "0 0 0.01"
     );
 
     target.appendChild(plane);
@@ -1068,6 +1072,7 @@ typingTimeouts.push(timeout);
         linkButton.style.display =
         "none";
 
+        
         const seconds = Math.floor(
 
           (Date.now() - startTime)
