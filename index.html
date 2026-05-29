@@ -253,7 +253,6 @@ style="display:none"
 <video
 id="movie6"
 src="cookie.mp4"
-autoplay
 loop
 muted
 playsinline
@@ -825,6 +824,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   });
 
+  // ===== 現在表示中ターゲット =====
+
+  let activeTarget = null;
+  
   // ===== 店舗生成 =====
 
   shops.forEach((shopData) => {
@@ -988,10 +991,21 @@ typingTimeouts.push(timeout);
       "targetFound",
       () => {
 
+        if(activeTarget && activeTarget !== target) return;
+        
         if(!arStarted) return;
         
         if(started) return;
-    
+        
+        activeTarget = target;
+
+        // 前回のセリフ処理を停止
+        typingTimeouts.forEach(timeout => clearTimeout(timeout));
+
+        typingTimeouts = [];
+
+        messageBox.textContent = "";    
+        
         started = true;
     
         startTime = Date.now();
@@ -1062,9 +1076,8 @@ typingTimeouts.push(timeout);
 
       if(!started) return;
 
-      started = false;
-        
         started = false;
+        activeTarget = null;
 
         messageBox.style.display =
         "none";
@@ -1072,7 +1085,13 @@ typingTimeouts.push(timeout);
         linkButton.style.display =
         "none";
 
-        
+        typingTimeouts.forEach(timeout => clearTimeout(timeout));
+
+        typingTimeouts = [];
+
+        messageBox.textContent = "";
+
+
         const seconds = Math.floor(
 
           (Date.now() - startTime)
