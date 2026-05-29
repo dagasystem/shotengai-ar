@@ -828,11 +828,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let activeTarget = null;
   
+  // ===== 全体タイマー管理 =====
+
+  let globalTypingTimeouts = [];
+  
   // ===== 店舗生成 =====
 
   shops.forEach((shopData) => {
-
-    let typingTimeouts = [];
 
     const target =
     document.createElement("a-entity");
@@ -917,7 +919,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         }, 120);
 
-typingTimeouts.push(timeout);
+globalTypingTimeouts.push(timeout);
 
       } else {
 
@@ -963,7 +965,7 @@ typingTimeouts.push(timeout);
 
               }, 1500);
 
-              typingTimeouts.push(timeout);
+              globalTypingTimeouts.push(timeout);
 
             }
 
@@ -998,11 +1000,13 @@ typingTimeouts.push(timeout);
         if(started) return;
         
         activeTarget = target;
+        messageBox.style.display = "none";
+        linkButton.style.display = "none";
 
         // 前回のセリフ処理を停止
-        typingTimeouts.forEach(timeout => clearTimeout(timeout));
+        globalTypingTimeouts.forEach(timeout => clearTimeout(timeout));
 
-        typingTimeouts = [];
+        globalTypingTimeouts = [];
 
         messageBox.textContent = "";    
         
@@ -1085,9 +1089,9 @@ typingTimeouts.push(timeout);
         linkButton.style.display =
         "none";
 
-        typingTimeouts.forEach(timeout => clearTimeout(timeout));
+        globalTypingTimeouts.forEach(timeout => clearTimeout(timeout));
 
-        typingTimeouts = [];
+        globalTypingTimeouts = [];
 
         messageBox.textContent = "";
 
