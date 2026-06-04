@@ -28,41 +28,47 @@ body{
 
 }
 
-#buttons{
+/* お店情報 */
+
+#shopButton{
 
   position:absolute;
 
-  bottom:8%;
-
   left:50%;
+
+  top:58%;
 
   transform:translateX(-50%);
 
-  display:flex;
+  width:58%;
 
-  flex-direction:column;
+  height:17%;
 
-  gap:20px;
-
-}
-
-.menuButton{
-
-  width:320px;
-
-  height:90px;
+  background:transparent;
 
   border:none;
 
-  border-radius:20px;
+}
 
-  font-size:28px;
+/* パーキング情報 */
 
-  font-weight:bold;
+#parkingButton{
 
-  color:white;
+  position:absolute;
 
-  background:#ff8c00;
+  left:50%;
+
+  top:78%;
+
+  transform:translateX(-50%);
+
+  width:58%;
+
+  height:15%;
+
+  background:transparent;
+
+  border:none;
 
 }
 
@@ -75,25 +81,16 @@ body{
 id="bg"
 src="menu.png">
 
-<div id="buttons">
+<button
+id="shopButton"
+onclick="location.href='shop.html'">
+</button>
 
-  <button
-  class="menuButton"
-  onclick="location.href='shop.html'">
-
-    お店情報をみる
-
-  </button>
-
-  <button
-  class="menuButton"
-  onclick="alert('準備中')">
-
-    パーキング情報をみる
-
-  </button>
-
-</div>
+<button
+id="parkingButton"
+onclick="location.href='parking.html'">
+</button>
+  
 
 </body>
 </html>
