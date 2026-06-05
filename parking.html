@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>まちみっけ！</title>
+
+<script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+<script src="parking.js"></script>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  font-family:sans-serif;
+}
+
+#closeButton{
+  position:fixed;
+  top:20px;
+  right:20px;
+  z-index:999999;
+  pointer-events:auto;
+  background:black;
+  color:white;
+  border:none;
+  border-radius:999px;
+  padding:16px 24px;
+  font-size:22px;
+  display:none;
+}
+
+#messageBox{
+  position:fixed;
+  top:12%;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,255,255,0.95);
+  color:black;
+  padding:14px 22px;
+  border-radius:20px;
+  font-size:24px;
+  font-weight:bold;
+  z-index:10000;
+  width:auto;
+  max-width:70%;
+  min-width:120px;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.3);
+  display:none;
+  white-space:pre-wrap;
+  overflow-wrap:break-word;
+  line-height:1.5;
+}
+
+#linkButton{
+  position:fixed;
+  bottom:8%;
+  left:50%;
+  transform:translateX(-50%);
+  background:#ff6600;
+  color:white;
+  padding:18px 28px;
+  border-radius:999px;
+  font-size:24px;
+  font-weight:bold;
+  z-index:10000;
+  text-decoration:none;
+  display:none;
+  box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+</style>
+</head>
+
+<body>
+
+<button id="closeButton">終了</button>
+
+<div id="messageBox"></div>
+
+<a id="linkButton" href="#" target="_blank">
+くわしくはこちら
+</a>
+
+<a-scene
+id="scene"
+mindar-image="
+imageTargetSrc: parking.mind;
+filterMinCF:0.001;
+filterBeta:0.01;
+"
+color-space="sRGB"
+renderer="colorManagement: true, physicallyCorrectLights"
+vr-mode-ui="enabled: false"
+device-orientation-permission-ui="enabled: false"
+style="display:none"
+>
+
+<a-assets id="assets"></a-assets>
+
+<a-camera
+position="0 0 0"
+look-controls="enabled:false">
+</a-camera>
+
+</a-scene>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const shops = window.SHOPS;
+
+  const scene = document.querySelector("#scene");
+  const assets = document.querySelector("#assets");
+  const closeButton = document.querySelector("#closeButton");
+  const messageBox = document.querySelector("#messageBox");
+  const linkButton = document.querySelector("#linkButton");
+
+  let arStarted = false;
+  let activeTarget = null;
+  let globalTypingTimeouts = [];
+
+  scene.style.display = "block";
+
+  function clearTyping(){
+    globalTypingTimeouts.forEach(timeout => clearTimeout(timeout));
+    globalTypingTimeouts = [];
+    messageBox.textContent = "";
+  }
+
+  function stopVideo(shopData){
+    if(shopData.type !== "video") return;
+
+    const video = document.querySelector(`#${shopData.image}`);
+
+    if(video){
+      video.pause();
+      video.currentTime = 0;
+    }
+  }
+
+  function playVideo(shopData){
+    if(shopData.type !== "video") return;
+
+    const video = document.querySelector(`#${shopData.image}`);
+
+    if(video){
+      video.pause();
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    }
+  }
+
+  // ===== assets生成 =====
+
+  shops.forEach(shop => {
+
+    if(shop.type === "video"){
+
+      const video = document.createElement("video");
+      video.id = shop.image;
+      video.src = shop.src;
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
+      video.setAttribute("crossorigin", "anonymous");
+
+      assets.appendChild(video);
+
+    } else {
+
+      const img = document.createElement("img");
+      img.id = shop.image;
+      img.src = shop.src;
+
+      assets.appendChild(img);
+
+    }
+
+  });
+
+  // ===== AR開始 =====
+
+    window.addEventListener("load", async () => {
+    
+      closeButton.style.display = "block";
+    
+      try{
+    
+        const stream =
+        await navigator.mediaDevices.getUserMedia({
+          video:true
+        });
+    
+        stream.getTracks().forEach(track => {
+          track.stop();
+        });
+    
+      } catch(error){
+    
+        alert(
+          "カメラを許可するとARが利用できます。タイトル画面へ戻ります。"
+        );
+    
+        window.location.href =
+        "index.html";
+    
+        return;
+    
+      }
+    
+      const mindarSystem =
+      scene.systems["mindar-image-system"];
+    
+      if(mindarSystem){
+    
+        await mindarSystem.start();
+    
+        arStarted = true;
+    
+      }
+    
+    });
+
+  // ===== 終了 =====
+
+  closeButton.addEventListener("click", async (event) => {
+
+    event.stopPropagation();
+
+    clearTyping();
+
+    const mindarSystem = scene.systems["mindar-image-system"];
+
+    if(mindarSystem){
+      await mindarSystem.stop();
+      arStarted = false;
+    }
+
+    window.location.href = "index.html";
+
+  });
+
+  // ===== 店舗生成 =====
+
+  shops.forEach((shopData) => {
+
+    const target = document.createElement("a-entity");
+
+    target.setAttribute(
+      "mindar-image-target",
+      `targetIndex:${shopData.id}`
+    );
+
+    let plane;
+
+    if(shopData.type === "video"){
+      plane = document.createElement("a-video");
+    } else {
+      plane = document.createElement("a-plane");
+    }
+
+    plane.setAttribute("src", `#${shopData.image}`);
+    plane.setAttribute("transparent", "true");
+    plane.setAttribute("material", "transparent:true; shader: flat");
+    plane.setAttribute("width", "0.8");
+    plane.setAttribute("height", "1.2");
+    plane.setAttribute("position", "0 0 0.01");
+
+    target.appendChild(plane);
+    scene.appendChild(target);
+
+    let started = false;
+    let startTime = 0;
+    let messageIndex = 0;
+
+    function typeWriter(text, callback, i = 0){
+
+      if(i <= text.length){
+
+        messageBox.textContent = text.substring(0, i);
+
+        const timeout = setTimeout(() => {
+          typeWriter(text, callback, i + 1);
+        }, 120);
+
+        globalTypingTimeouts.push(timeout);
+
+      } else {
+
+        if(callback){
+          callback();
+        }
+
+      }
+
+    }
+
+    function showNextMessage(){
+
+      if(messageIndex < shopData.messages.length){
+
+        typeWriter(
+          shopData.messages[messageIndex],
+          () => {
+
+            messageIndex++;
+
+            if(messageIndex < shopData.messages.length){
+
+              const timeout = setTimeout(() => {
+                showNextMessage();
+              }, 1500);
+
+              globalTypingTimeouts.push(timeout);
+
+            } else {
+
+              if(shopData.url && shopData.url !== "#"){
+                linkButton.href = shopData.url;
+                linkButton.style.display = "block";
+              }
+
+            }
+
+          }
+        );
+
+      }
+
+    }
+
+    target.addEventListener("targetFound", () => {
+
+      if(activeTarget && activeTarget !== target) return;
+      if(!arStarted) return;
+      if(started) return;
+
+      activeTarget = target;
+
+      clearTyping();
+
+      messageBox.style.display = "none";
+      linkButton.style.display = "none";
+
+      started = true;
+      startTime = Date.now();
+
+      playVideo(shopData);
+
+      if(shopData.type !== "video"){
+        messageIndex = 0;
+        messageBox.style.display = "block";
+        showNextMessage();
+      }
+
+    });
+
+    target.addEventListener("targetLost", () => {
+
+      stopVideo(shopData);
+
+      if(!started) return;
+
+      started = false;
+      activeTarget = null;
+
+      messageBox.style.display = "none";
+      linkButton.style.display = "none";
+
+      clearTyping();
+
+      const seconds = Math.floor((Date.now() - startTime) / 1000);
+
+      if(seconds <= 0) return;
+
+      fetch(
+        "https://script.google.com/macros/s/AKfycbyJ1Du5S-yQqG8ylXoq8i4g8YmzKlDtngqub1Sj07kiVJYb8b30HFVrvtaX6MTqL7Qf/exec",
+        {
+          method:"POST",
+          body:JSON.stringify({
+            shop:shopData.image,
+            seconds:seconds,
+            time:new Date().toLocaleString()
+          })
+        }
+      );
+
+    });
+
+  });
+
+});
+</script>
+
+</body>
+</html>
