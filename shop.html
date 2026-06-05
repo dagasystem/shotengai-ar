@@ -185,35 +185,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== AR開始 =====
 
-  window.addEventListener("load", async () => {
-  
-    closeButton.style.display = "block";
-  
-    const mindarSystem =
-    scene.systems["mindar-image-system"];
-  
-    if(!mindarSystem) return;
-  
-    try{
-  
-      await mindarSystem.start();
-  
-      arStarted = true;
-  
-    }
-  
-    catch(error){
-  
-      alert(
-        "カメラを許可するとARが利用できます"
-      );
-  
-      location.href =
-      "index.html";
-  
-    }
-  
-  });
+    window.addEventListener("load", async () => {
+    
+      closeButton.style.display = "block";
+    
+      try{
+    
+        const stream =
+        await navigator.mediaDevices.getUserMedia({
+          video:true
+        });
+    
+        stream.getTracks().forEach(track => {
+          track.stop();
+        });
+    
+      } catch(error){
+    
+        alert(
+          "カメラを許可するとARが利用できます。タイトル画面へ戻ります。"
+        );
+    
+        window.location.href =
+        "index.html";
+    
+        return;
+    
+      }
+    
+      const mindarSystem =
+      scene.systems["mindar-image-system"];
+    
+      if(mindarSystem){
+    
+        await mindarSystem.start();
+    
+        arStarted = true;
+    
+      }
+    
+    });
 
   // ===== 終了 =====
 
