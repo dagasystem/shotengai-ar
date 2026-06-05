@@ -6,7 +6,7 @@ window.SHOPS = [
     image:"parking1",
     src:"parking1.png",
     url:"#",
-    messages:[]
+    messages:[あいタウン駐車場]
   },
 
 
