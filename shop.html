@@ -186,16 +186,33 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===== AR開始 =====
 
   window.addEventListener("load", async () => {
-
+  
     closeButton.style.display = "block";
-
-    const mindarSystem = scene.systems["mindar-image-system"];
-
-    if(mindarSystem){
+  
+    const mindarSystem =
+    scene.systems["mindar-image-system"];
+  
+    if(!mindarSystem) return;
+  
+    try{
+  
       await mindarSystem.start();
+  
       arStarted = true;
+  
     }
-
+  
+    catch(error){
+  
+      alert(
+        "カメラを許可するとARが利用できます"
+      );
+  
+      location.href =
+      "index.html";
+  
+    }
+  
   });
 
   // ===== 終了 =====
