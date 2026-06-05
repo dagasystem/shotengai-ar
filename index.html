@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0">
 
 <title>まちみっけ！</title>
 
 <style>
 
 body{
+
   margin:0;
   padding:0;
   overflow:hidden;
+
 }
+
+/* 背景 */
 
 #bg{
 
@@ -28,69 +37,84 @@ body{
 
 }
 
-/* お店情報 */
+/* ボタン共通 */
 
-#shopButton{
+.menuButton{
 
   position:absolute;
 
   left:50%;
 
-  top:58%;
-
   transform:translateX(-50%);
 
   width:58%;
 
-  height:17%;
+  height:auto;
 
-  background:rgba(255,0,0,0.2);
-
-  border:3px solid red;
+  z-index:10;
 
 }
 
-/* パーキング情報 */
+/* お店ボタン位置 */
+
+#shopButton{
+
+  top:56%;
+
+}
+
+/* 駐車場ボタン位置 */
 
 #parkingButton{
 
-  position:absolute;
+  top:76%;
 
-  left:50%;
+}
 
-  top:78%;
+.menuButton img{
 
-  transform:translateX(-50%);
+  width:100%;
 
-  width:58%;
-
-  height:15%;
-
-  background:rgba(0,255,0,0.2);
-
-  border:3px solid lime;
+  display:block;
 
 }
 
 </style>
+
 </head>
 
 <body>
 
+<!-- 背景 -->
+
 <img
 id="bg"
-src="menu.png">
+src="menu_bg.png">
 
-<button
+<!-- お店情報ボタン -->
+
+<a
 id="shopButton"
-onclick="location.href='shop.html'">
-</button>
+class="menuButton"
+href="shop.html">
 
-<button
+<img
+src="shop_button.png">
+
+</a>
+
+<!-- パーキング情報ボタン -->
+
+<a
 id="parkingButton"
-onclick="location.href='parking.html'">
-</button>
-  
+class="menuButton"
+href="parking.html">
+
+<img
+src="parking_button.png">
+
+</a>
 
 </body>
+
 </html>
