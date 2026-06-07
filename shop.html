@@ -385,7 +385,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const seconds = Math.floor((Date.now() - startTime) / 1000);
 
-      if(seconds <= 0) return;
+      alert(
+        "ログ送信します\n" +
+        "shop=" + shopData.image + "\n" +
+        "seconds=" + seconds + "\n" +
+        "clicked=" + detailClicked
+      );
 
       fetch(
       "https://script.google.com/macros/s/AKfycbyJ1Du5S-yQqG8ylXoq8i4g8YmzKlDtngqub1Sj07kiVJYb8b30HFVrvtaX6MTqL7Qf/exec",
