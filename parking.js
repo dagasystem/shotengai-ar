@@ -150,7 +150,7 @@ type:"image",
 image:"parking17",
 src:"parking17.png",
 url:"#",
-messages:["あなぶきパーク飯塚６８８"]
+messages:["あなぶきパーク"]
 },
 
 {
