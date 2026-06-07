@@ -401,7 +401,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     )
     .catch(error => {
-      console.log("ログ送信エラー", error);
+
+      alert(
+        "ログ送信エラー\n" +
+        error
+      );
+
     });
 
       
