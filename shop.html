@@ -120,6 +120,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let arStarted = false;
   let activeTarget = null;
+  let activeShopData = null;
+  let detailClicked = false;
   let globalTypingTimeouts = [];
 
   scene.style.display = "block";
@@ -277,6 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let started = false;
     let startTime = 0;
     let messageIndex = 0;
+    let detailClicked = false;
 
     function typeWriter(text, callback, i = 0){
 
@@ -341,6 +344,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if(started) return;
 
       activeTarget = target;
+      activeShopData = shopData;
+      detailClicked = false;
 
       clearTyping();
 
@@ -349,6 +354,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       started = true;
       startTime = Date.now();
+      detailClicked = false;
 
       playVideo(shopData);
 
