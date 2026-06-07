@@ -388,17 +388,23 @@ document.addEventListener("DOMContentLoaded", () => {
       if(seconds <= 0) return;
 
       fetch(
-        "https://script.google.com/macros/s/AKfycbyJ1Du5S-yQqG8ylXoq8i4g8YmzKlDtngqub1Sj07kiVJYb8b30HFVrvtaX6MTqL7Qf/exec",
-        {
-          method:"POST",
-          body:JSON.stringify({
-            shop:shopData.image,
-            seconds:seconds,
-            clickedDetail:detailClicked,
-            time:new Date().toLocaleString()
-          })
-        }
-      );
+      "https://script.google.com/macros/s/AKfycbyJ1Du5S-yQqG8ylXoq8i4g8YmzKlDtngqub1Sj07kiVJYb8b30HFVrvtaX6MTqL7Qf/exec",
+      {
+        method:"POST",
+        mode:"no-cors",
+        body:JSON.stringify({
+          shop:shopData.image,
+          seconds:seconds,
+          clickedDetail:detailClicked,
+          time:new Date().toLocaleString()
+        })
+      }
+    )
+    .catch(error => {
+      console.log("ログ送信エラー", error);
+    });
+
+      
 
     });
 
