@@ -88,8 +88,10 @@ body{
 id="scene"
 mindar-image="
 imageTargetSrc: targets.mind;
-filterMinCF:0.001;
-filterBeta:0.01;
+filterMinCF:0.01;
+filterBeta:0.1;
+missTolerance:3;
+warmupTolerance:3;
 "
 color-space="sRGB"
 renderer="colorManagement: true, physicallyCorrectLights"
